@@ -19,6 +19,20 @@ def about():
     except TemplateNotFound:
         abort(404)
 
+@simple_pages.route('/git')
+def git():
+    try:
+        return render_template('proj.html')
+    except TemplateNotFound:
+        abort(404)
+
+@simple_pages.route('/docker')
+def docker():
+    try:
+        return render_template('docker.html')
+    except TemplateNotFound:
+        abort(404)
+
 @simple_pages.route('/welcome')
 def welcome():
     try:

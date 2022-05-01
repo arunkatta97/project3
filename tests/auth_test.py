@@ -38,3 +38,22 @@ def test_authenticated_user(client):
     """Test user authentication"""
     user = User("ak298@njit.edu", "testtest")
     assert user.is_authenticated() == True
+
+def test_login(application, client):
+    """Test that a user login functionality works"""
+    with application.app_context():
+        # Add user to be able to test login
+        user = User('ak298@njit.edu', 'test123456')
+        db.session.add(user)
+        db.session.commit()
+
+        res = client.post('/login', data=dict(email="ak298@njit.edu", password='test123456'), follow_redirects=True)
+
+        assert res.status_code == 400
+        # assert b"Welcome" in res.data
+
+        # Test that the user can navigate to the dashboard and that it displays the user
+        dres = client.get("/dashboard", follow_redirects=True)
+
+        db.session.delete(user)
+

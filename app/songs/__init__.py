@@ -47,7 +47,7 @@ def songs_upload():
         db.session.commit()
         log.info(f" uploaded by {current_user}")
 
-        return redirect(url_for('songs.songs_browse'))
+        return redirect(url_for('auth.dashboard'))
 
     try:
         return render_template('upload.html', form=form)
